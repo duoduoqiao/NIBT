@@ -8,7 +8,7 @@ clear
 rng('shuffle');
 
 % load a LN snapshot
-LN_snapshot_file="LN_snapshots\Lightning_20200205.mat";
+LN_snapshot_file = "LN_snapshots\Lightning_20200205.mat";
 load(LN_snapshot_file);
 A = remove_unreachable_nodes(A);
 
@@ -19,8 +19,8 @@ LN_options.fee_unit = 10^(-6); % the unit per transfered Satoshi
 
 capacities = [0.000012,0.0001,0.001,0.005,0.02,0.1,0.167]*10^(8); % the distribution of channel capacities
 capacities_prob = [0.01,0.05,0.25,0.5,0.75,0.9,1]; 
-[channel_balances,channel_capacities] = simulate_channels(A,capacities,capacities_prob); %simulate the channel capacities and balances 
-channels_info = create_channels_data(channel_balances,channel_capacities); % create the channel structures
+[channel_balances, channel_capacities] = simulate_channels(A, capacities, capacities_prob); %simulate the channel capacities and balances 
+channels_info = create_channels_data(channel_balances, channel_capacities); % create the channel structures
 
 % set the parallel mode parameters
 is_parallel = 0; % 0 means the parallel mode is off; 1 means the parallel mode is on
@@ -55,4 +55,4 @@ atk_options.pay_step = 100; % step for searching the optimal payment amount
     rl_options, atk_options, LN_options); 
 
 % plot the results before and after balance disclosure
-[h_total_before, h_total_after, h_small, h_large] = plot_balance_accuracy(channels_info,max_tran);
+[h_total_before, h_total_after, h_small, h_large] = plot_balance_accuracy(channels_info,LN_options.max_tran);
